@@ -27,11 +27,14 @@ jobs:
       - name: 📦 Obtener dependencias del proyecto
         run: flutter pub get
 
-      - name: 🏗️ Compilar IPA para iOS (Sin firma para pruebas)
-        run: flutter build ipa --release --no-codesign
+      - name: 🏗️ Compilar app para iOS (Sin firma)
+        run: |
+          flutter build ios --release --no-codesign
+          cd build/ios/iphoneos
+          zip -r Runner.zip Runner.app
 
-      - name: 📤 Subir archivo IPA como artefacto de descarga
+      - name: 📤 Subir archivo ZIP como artefacto de descarga
         uses: actions/upload-artifact@v4
         with:
-          name: ios-release-ipa
-          path: build/ios/ipa/*.ipa
+          name: ios-release-app
+          path: build/ios/iphoneos/Runner.zip
