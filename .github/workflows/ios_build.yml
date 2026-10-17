@@ -7,7 +7,8 @@ on:
 jobs:
   build-ios:
     name: Compilar para iOS en Mac
-    runs-on: macos-13
+    runs-on: macos-latest
+    timeout-minutes: 20
 
     steps:
       - name: 📥 Clonar repositorio
@@ -22,6 +23,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          cache: true
 
       - name: 📦 Obtener dependencias del proyecto
         run: flutter pub get
